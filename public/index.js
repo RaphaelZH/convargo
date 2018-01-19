@@ -187,6 +187,12 @@ for (var i = 0; i < deliveries.length; i ++)
     commission = commission - tax;
     deliveries[i].commission.treasury = tax;
     deliveries[i].commission.convargo = commission;
+    var optionPrice = 0;
+    if (deliveries[i].options.deductibleReduction != false)
+    {
+      optionPrice = deliveries[i].volume;
+      deliveries[i].commission.convargo = commission + optionPrice;
+    }
     document.write("Insurance price for shipper " + deliveries[i].shipper + " is " + deliveries[i].commission.insurance + " euros.<br>");
     document.write("Treasury price for shipper " + deliveries[i].shipper + " is " + deliveries[i].commission.treasury + " euros.<br>");
     document.write("Convargo price for shipper " + deliveries[i].shipper + " is " + deliveries[i].commission.convargo + " euros.<br>");
