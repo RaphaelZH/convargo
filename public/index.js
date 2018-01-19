@@ -179,7 +179,6 @@ for (var i = 0; i < deliveries.length; i ++)
       deliveries[i].price *= 1;
     }
     deliveries[i].price = Math.round(deliveries[i].price * 100)/100
-    document.write("Shpping price for shipper " + deliveries[i].shipper + " is " + deliveries[i].price + " euros. (Decreasing pricing for high volumes.)<br>");
     var commission = Math.round(deliveries[i].price * 30)/100;
     deliveries[i].commission.insurance = commission/2;
     commission = commission - commission/2;
@@ -193,9 +192,12 @@ for (var i = 0; i < deliveries.length; i ++)
       optionPrice = deliveries[i].volume;
       deliveries[i].commission.convargo = commission + optionPrice;
     }
-    document.write("Insurance price for shipper " + deliveries[i].shipper + " is " + deliveries[i].commission.insurance + " euros.<br>");
-    document.write("Treasury price for shipper " + deliveries[i].shipper + " is " + deliveries[i].commission.treasury + " euros.<br>");
-    document.write("Convargo price for shipper " + deliveries[i].shipper + " is " + deliveries[i].commission.convargo + " euros.<br>");
+    var shipperpay = 0;
+    deliveries[i].shipperpay = deliveries[i].price + deliveries[i].commission.insurance + deliveries[i].commission.treasury + deliveries[i].commission.convargo;
+    document.write("Shipper " + deliveries[i].shipper + " must pay " + deliveries[i].shipperpay + " euros.<br>");
+    var truckerreceive = 0;
+    truckers[i].truckerreceive = deliveries[i].commission.insurance + deliveries[i].commission.treasury + deliveries[i].commission.convargo;
+    document.write("Trucker " + truckers[i].name + " receives " + truckers[i].truckerreceive + " euros.<br>");
   }
   else {
     console.log(error)
