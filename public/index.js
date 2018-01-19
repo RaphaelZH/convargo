@@ -165,8 +165,21 @@ for (var i = 0; i < deliveries.length; i ++)
   var trucker = searchTruck(deliveries[i].truckerId);
   if (trucker != false)
   {
-    deliveries[i].price = deliveries[i].distance * trucker.pricePerKm +deliveries[i].volume * trucker.pricePerVolume;
-    document.write("Shpping price for shipper " + deliveries[i].shipper + " is " + deliveries[i].price + " euros.<br>");
+    deliveries[i].price = deliveries[i].distance * trucker.pricePerKm + deliveries[i].volume * trucker.pricePerVolume;
+    if (deliveries[i].volume > 5 && deliveries[i].volume <=10) {
+      deliveries[i].price *= 0.9;
+    }
+    else if (deliveries[i].volume > 10 && deliveries[i].volume <= 25) {
+      deliveries[i].price *= 0.7;
+    }
+    else if (deliveries[i].volume > 25) {
+      deliveries[i].price *= 0.5;
+    }
+    else {
+      deliveries[i].price *= 1;
+    }
+    deliveries[i].price = Math.round(deliveries[i].price * 100)/100
+    document.write("Shpping price for shipper " + deliveries[i].shipper + " is " + deliveries[i].price + " euros. (Decreasing pricing for high volumes.)<br>");
   }
   else {
     console.log(error)
