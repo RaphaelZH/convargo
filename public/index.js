@@ -180,6 +180,16 @@ for (var i = 0; i < deliveries.length; i ++)
     }
     deliveries[i].price = Math.round(deliveries[i].price * 100)/100
     document.write("Shpping price for shipper " + deliveries[i].shipper + " is " + deliveries[i].price + " euros. (Decreasing pricing for high volumes.)<br>");
+    var commission = Math.round(deliveries[i].price * 30)/100;
+    deliveries[i].commission.insurance = commission/2;
+    commission = commission - commission/2;
+    var tax = Math.trunc(deliveries[i].distance/500 + 1);
+    commission = commission - tax;
+    deliveries[i].commission.treasury = tax;
+    deliveries[i].commission.convargo = commission;
+    document.write("Insurance price for shipper " + deliveries[i].shipper + " is " + deliveries[i].commission.insurance + " euros.<br>");
+    document.write("Treasury price for shipper " + deliveries[i].shipper + " is " + deliveries[i].commission.treasury + " euros.<br>");
+    document.write("Convargo price for shipper " + deliveries[i].shipper + " is " + deliveries[i].commission.convargo + " euros.<br>");
   }
   else {
     console.log(error)
