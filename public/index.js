@@ -144,6 +144,37 @@ const actors = [{
   }]
 }];
 
+
+
+function searchTruck(truckerId)
+{
+  var i = 0;
+  while (i < truckers.length)
+  {
+    if (truckers[i].id == truckerId)
+    {
+      return truckers[i];
+    }
+    i ++;
+  }
+  return false;
+}
+
+for (var i = 0; i < deliveries.length; i ++)
+{
+  var trucker = searchTruck(deliveries[i].truckerId);
+  if (trucker != false)
+  {
+    deliveries[i].price = deliveries[i].distance * trucker.pricePerKm +deliveries[i].volume * trucker.pricePerVolume;
+    document.write("Shpping price for shipper " + deliveries[i].shipper + " is " + deliveries[i].price + " euros.<br>");
+  }
+  else {
+    console.log(error)
+  }
+}
+
+
+
 console.log(truckers);
 console.log(deliveries);
 console.log(actors);
